@@ -56,12 +56,15 @@ JWT_SECRET=ваш_секрет
 - Frontend:
 Перейдите в cd client
 Выполните npm install
-Создайте файл .env и добавьте: VITE_API_URL=http://localhost:5000/api
-
+Создайте файл .env и добавьте:
+```
+VITE_API_URL=http://localhost:5000/api
+```
 Запустите: npm run dev
 
 ### 4. Особенности реализации
 - Auth Middleware проверяет статус пользователя через JWT
 - Bulk Actions оптимизированы через SQL WHERE id = ANY($1)
 - Axios автоматически разлогинивает пользователя при 401
+
 
