@@ -25,7 +25,7 @@
 ### 2. Настройка Базы Данных
 Создайте таблицу в вашей БД, используя следующий SQL-запрос:
 
-sql
+```sql
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
@@ -35,14 +35,14 @@ CREATE TABLE users (
     registration_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
     status VARCHAR(20) DEFAULT 'unconfirmed'
 );
-
+```
 ### 3. Установка и запуск
 Клонируйте репозиторий.
 
 - Backend:
 Перейдите в cd server
 Выполните npm install
-
+```
 PORT=5000
 DB_USER=ваше_имя
 DB_HOST=localhost
@@ -50,7 +50,7 @@ DB_NAME=имя_бд
 DB_PASSWORD=пароль
 DB_PORT=5432
 JWT_SECRET=ваш_секрет
-
+```
 Запустите: npm run dev или node index.js
 
 - Frontend:
@@ -61,6 +61,7 @@ JWT_SECRET=ваш_секрет
 Запустите: npm run dev
 
 ### 4. Особенности реализации
-Auth Middleware проверяет статус пользователя через JWT
-Bulk Actions оптимизированы через SQL WHERE id = ANY($1)
-Axios автоматически разлогинивает пользователя при 401
+- Auth Middleware проверяет статус пользователя через JWT
+- Bulk Actions оптимизированы через SQL WHERE id = ANY($1)
+- Axios автоматически разлогинивает пользователя при 401
+
