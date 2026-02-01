@@ -2,7 +2,7 @@
 
 Веб-приложение для управления пользователями с функциями авторизации, блокировки и удаления.
 
-**Ссылка на деплой:** [Netlify Frontend](https://magical-dasik-b793de.netlify.app)
+**Ссылка на деплой:** [https://magical-dasik-b793de.netlify.app](https://magical-dasik-b793de.netlify.app)
 
 ## Технологии (Stack)
 - **Frontend:** React (Vite), React-Bootstrap, React-Router-Dom, Axios.
@@ -66,5 +66,6 @@ VITE_API_URL=http://localhost:5000/api
 - Auth Middleware проверяет статус пользователя через JWT
 - Bulk Actions оптимизированы через SQL WHERE id = ANY($1)
 - Axios автоматически разлогинивает пользователя при 401
+
 
 
