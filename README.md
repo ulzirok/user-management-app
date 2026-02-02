@@ -44,7 +44,8 @@ CREATE TABLE users (
 
 - Backend:
 Перейдите в cd server,
-Выполните npm install
+Выполните npm install,
+Создайте файл .env и добавьте:
 ```
 PORT=5000
 DB_USER=ваше_имя
@@ -64,5 +65,6 @@ JWT_SECRET=ваш_секрет
 VITE_API_URL=http://localhost:5000/api
 ```
 Запустите: npm run dev
+
 
 
