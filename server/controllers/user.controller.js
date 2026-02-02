@@ -25,7 +25,7 @@ class UserController {
         }
     };
 
-    sendEmail = async (email) => { // Nodemailer
+    sendEmail = async (email) => {
         try {
             console.log(`The letter has been sent by ${email}`);
         } catch (error) {
@@ -68,7 +68,9 @@ class UserController {
 
     getUsers = async (req, res) => {
         try {
-            const users = await db.query('SELECT * FROM users ORDER BY last_login_at DESC');
+            const users = await db.query(
+                'SELECT id, name, email, last_login_at, status FROM users ORDER BY last_login_at DESC'
+            );
             res.status(200).json(users.rows);
         } catch (error) {
             errorHandler(res, error);
