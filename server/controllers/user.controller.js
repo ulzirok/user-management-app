@@ -39,6 +39,7 @@ class UserController {
                 subject: 'Confirm your email',
                 html: `<a href="${link}">Click here to activate your account</a>`
             });
+            console.log(`Email sent to ${email}`);
         } catch (error) {
             console.error('Email error:', error);
         }
