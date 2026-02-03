@@ -1,8 +1,8 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const transporter = require('../config/mailer');
 const db = require('../db');
 const errorHandler = require('../utils/errorHandler');
-
 class UserController {
     register = async (req, res) => {
         try {
@@ -13,8 +13,13 @@ class UserController {
                 'INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING *',
                 [name, email, hashPassword]
             );
-            res.status(201).json(user.rows[0]);
-            this.sendEmail(user.rows[0].email);
+            const newUser = user.rows[0];
+            const token = jwt.sign({ id: newUser.id }, process.env.JWT_SECRET, { expiresIn: '1d' });
+            const link = `${process.env.BASE_URL}/api/confirm/${token}`;
+            // const link = `http://localhost:5000/api/confirm/${token}`;
+            res.status(201).json({ message: 'User created, verify email' });
+            this.sendEmail(newUser.email, link).catch(err => console.error('Mail error:', err));
+
         } catch (error) {
             if (error.code === '23505') { //err code DB 23505
                 res.status(409).json({
@@ -25,11 +30,32 @@ class UserController {
         }
     };
 
-    sendEmail = async (email) => {
+    sendEmail = async (email, link) => {
+        console.log(` ${email}`);
         try {
-            console.log(`The letter has been sent by ${email}`);
+            await transporter.sendMail({
+                from: process.env.EMAIL_USER,
+                to: email,
+                subject: 'Confirm your email',
+                html: `<a href="${link}">Click here to activate your account</a>`
+            });
         } catch (error) {
-            console.error(error.message);
+            console.error('Email error:', error);
+        }
+    };
+
+    confirmEmail = async (req, res) => {
+        try {
+            const { token } = req.params;
+            const decoded = jwt.verify(token, process.env.JWT_SECRET);
+            await db.query(
+                "UPDATE users SET status = 'active' WHERE id = $1 AND status != 'blocked'",
+                [decoded.id]
+            );
+            res.redirect(`${process.env.CLIENT_URL}/login?verified=true`);
+            // res.redirect('http://localhost:5173/api/login?verified=true');
+        } catch (e) {
+            res.status(400).send('Invalid or expired token');
         }
     };
 
