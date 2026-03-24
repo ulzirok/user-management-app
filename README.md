@@ -4,6 +4,8 @@
 
 **Ссылка на деплой:** [https://magical-dasik-b793de.netlify.app](https://magical-dasik-b793de.netlify.app)
 
+**Demo Видео:** [Open demo video](https://drive.google.com/file/d/1ubl28xERRMGd6k6Op1oyVi7nF8RIipHc/view?usp=sharing)
+
 ## Технологии (Stack)
 - **Frontend:** React (Vite), React-Bootstrap, React-Router-Dom, Axios.
 - **Backend:** Node.js, Express, Passport.js (JWT Strategy), Bcrypt.js.
